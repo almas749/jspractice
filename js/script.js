@@ -1,61 +1,80 @@
 'use strict';
+// 1) Первую часть задания повторить по уроку
 
-// 1) Создайте функцию, которая будет на вход принимать 1 аргумент с именем человека и возвращать строку.
+let numberOfFilms;
 
-// Пример: вызов функции sayHello('Антон') возвращает строку "Привет, Антон!". В решении вызывать функцию не нужно, программа сделает это за вас.
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
-// P.S. возвращать - это использовать ключевое слово return.
-
-// P.S.S. Это классическая функция-модификатор, которых мы дальше по курсу будем создавать еще много в разных видах.
-
-// 2) Создайте функцию, которая принимает в себя 1 аргумент в виде целого числа и возвращает массив из трех чисел: одно на 1 меньше, сам аргумент, и число на 1 больше.
-
-// Пример: вызов функции returnNeighboringNumbers(5) возвращает массив в виде [4, 5, 6].
-
-// 3) Создайте функцию, которая будет принимать в себя 2 аргумента, оба числа. Первое число - это база, второе число - это сколько раз нужно будет повторить это число в прогрессии. (Смотри пример ниже). Функция должна возвращать строку (или число в особых случаях, о которых ниже), где эти числа идут по порядку, разделенные тремя дефисами "---". После последнего числа их не должно быть.
-
-// Если второй аргумент не является числом, равен или меньше нуля - то возвращать просто первый аргумент. (Проверяем через оператор typeof)
-
-// Примеры:
-
-// Вызов функции getMathResult(5, 3) даст ответ 5---10---15
-
-// Вызов функции getMathResult(3, 10) даст ответ 3---6---9---12---15---18---21---24---27---30
-
-// Вызов функции getMathResult(10, 5) даст ответ 10---20---30---40---50
-
-// Вызов функции getMathResult(10, '5') даст ответ 10
-
-// Вызов функции getMathResult(10, 0) даст ответ 10
-
-// Вызов функции getMathResult(20, -5) даст ответ 20
-
-// Эта задача уже ближе к реальности, когда вам нужно учитывать и тип данных у аргументов, проверять их и продумывать логику работы внутри. Обратите внимание на прогрессию, она рассчитывается по простой формуле умножения. Если первый аргумент 5, а второй 3, то число повторяется 3 раза, каждый раз увеличиваясь на само себя. Это базовая математика, которая и нужна для работы в 95% случае на фронтенде.
-
-// Место для первой задачи
-function sayHello(name) {
-    const hello = 'Привет, ' + name;
-    return hello;
-}
-
-// Место для второй задачи
-function returnNeighboringNumbers(num) {
-    const neighbors = [];
-    neighbors[0] = num - 1;
-    neighbors[1] = num;
-    neighbors[2] = num + 1;
-    return neighbors;
-}
-
-// Место для третьей задачи
-function getMathResult(base, count) {
-    let result = base;
-    for (let i = 2; i <= count; i++) {
-        let number = base * i;
-        result += `---${number}`;
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
     }
-    if (typeof(count) != 'number' || count <= 0 ){
-        return base;
-    }
-    return result;
 }
+
+start();
+
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
+
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const watchedMovie = prompt('Один из последних просмотренных фильмов?', ''),
+              rateMovie = prompt('На сколько оцените его?', '');
+    
+        if(watchedMovie != null && rateMovie != null && watchedMovie != '' && rateMovie != '' && watchedMovie.length < 50){
+            personalMovieDB.movies[watchedMovie] = rateMovie;
+            console.log('done!');
+        } else {
+            console.log('error!');
+            i--;
+        }
+    }
+}
+
+rememberMyFilms();
+
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log('Просмотрено довольно мало фильмов');
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log('Вы классический зритель');
+    } else if (personalMovieDB.count >= 30) {
+        console.log('Вы киноман');
+    } else {
+        console.log('Произошла ошибка');
+    }
+}
+
+detectPersonalLevel();
+
+
+// 2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
+// false - выводит в консоль главный объект программы
+
+function showMyDB() {
+    let privat = personalMovieDB.privat;
+    if (privat == false) {
+        console.log(personalMovieDB);
+    } 
+}
+
+// 3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
+// "Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
+// genres
+
+function writeYourGenres() {
+    for (let i = 0; i < 3; i++) {     
+        let favoriteGenre = prompt(`Ваш любимый жанр под номером ${i+1}`, '');
+        personalMovieDB.genres[i] = favoriteGenre;
+    }
+}
+
+writeYourGenres();
+
+showMyDB();
