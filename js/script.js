@@ -1,80 +1,73 @@
 'use strict';
-// 1) Первую часть задания повторить по уроку
 
-let numberOfFilms;
+// 1) Создайте функцию, которая будет вычислять объем и площадь полной поверхности куба (тоже базовая математика, иногда используется в создании анимаций). Эта функция принимает в себя целое число со значением длины ребра куба. Ответ выведите в формате строки, который изображен в примерах.
 
-function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+// Если в функцию попал неправильный аргумент или вычислить значения невозможно - вернуть строку "При вычислении произошла ошибка"
 
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-    }
-}
+// НЕ ИСПОЛЬЗУЙТЕ ОПЕРАТОР СТЕПЕНИ ** - в онлайн среде браузера он не работает и тесты будут ломаться. Это из-за того, что этот оператор из более нового стандарта, чем тут доступен.
 
-start();
+// Примеры:
 
-const personalMovieDB = {
-    count: numberOfFilms,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false
-};
+// calculateVolumeAndArea(5)  => 'Объем куба: 125, площадь всей поверхности: 150'
 
-function rememberMyFilms() {
-    for (let i = 0; i < 2; i++) {
-        const watchedMovie = prompt('Один из последних просмотренных фильмов?', ''),
-              rateMovie = prompt('На сколько оцените его?', '');
-    
-        if(watchedMovie != null && rateMovie != null && watchedMovie != '' && rateMovie != '' && watchedMovie.length < 50){
-            personalMovieDB.movies[watchedMovie] = rateMovie;
-            console.log('done!');
-        } else {
-            console.log('error!');
-            i--;
-        }
-    }
-}
+// calculateVolumeAndArea(15)  => 'Объем куба: 3375, площадь всей поверхности: 1350'
 
-rememberMyFilms();
+// calculateVolumeAndArea(15.5)  => 'При вычислении произошла ошибка'
+
+// calculateVolumeAndArea('15')  => 'При вычислении произошла ошибка'
+
+// calculateVolumeAndArea(-15)  => 'При вычислении произошла ошибка'
 
 
-function detectPersonalLevel() {
-    if (personalMovieDB.count < 10) {
-        console.log('Просмотрено довольно мало фильмов');
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
-        console.log('Вы классический зритель');
-    } else if (personalMovieDB.count >= 30) {
-        console.log('Вы киноман');
+
+// 2 Постепенно переходим к более реалистичным задачам :) Вы обнаружите, что там используется все тоже самое.
+
+// Напишите функцию, которая будет определять номер купе по переданному ей номеру места. Наглядно:
+
+
+// Функция принимает только целое число от 1 до 36.
+
+// Если переданный аргумент не число, отрицательное или дробное - возвращается сообщение:
+
+// "Ошибка. Проверьте правильность введенного номера места"
+
+// Если число 0 или больше 36, то сообщение: "Таких мест в вагоне не существует"
+
+// Пример:
+
+// getCoupeNumber(33)  => 9
+
+// getCoupeNumber(7)  => 2
+
+// getCoupeNumber(300)  => "Таких мест в вагоне не существует"
+
+// getCoupeNumber(0)  => "Таких мест в вагоне не существует"
+
+// getCoupeNumber(7.7)  => "Ошибка. Проверьте правильность введенного номера места"
+
+// getCoupeNumber(-10)  => "Ошибка. Проверьте правильность введенного номера места"
+
+// getCoupeNumber('Hello')  => "Ошибка. Проверьте правильность введенного номера места"
+
+// Такая функция вполне реальна и может использоваться для формирования билетов, в том числе и визуально на сайтах. Конечно, там будет куда больше условий, но смысл остается таким же.
+
+// Место для первой задачи
+function calculateVolumeAndArea(length) {
+    const area = 6 * length * length;
+    const volume = length * length * length;
+    if (length !== parseInt(length) || length <= 0) {
+        return ('При вычислении произошла ошибка');
     } else {
-        console.log('Произошла ошибка');
+        return (`Объем куба: ${volume}, площадь всей поверхности: ${area}`);
     }
 }
 
-detectPersonalLevel();
-
-
-// 2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
-// false - выводит в консоль главный объект программы
-
-function showMyDB() {
-    let privat = personalMovieDB.privat;
-    if (privat == false) {
-        console.log(personalMovieDB);
-    } 
+// Место для второй задачи
+function getCoupeNumber(number) {
+    let coupeNumber = number / 4;
+    if (number !== parseInt(number) || number < 0) {
+        return ('Ошибка. Проверьте правильность введенного номера места');
+    } else if (number === 0 || number > 36) {
+        return ('Таких мест в вагоне не существует');
+    } else return (Math.ceil(coupeNumber));
 }
-
-// 3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
-// "Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
-// genres
-
-function writeYourGenres() {
-    for (let i = 0; i < 3; i++) {     
-        let favoriteGenre = prompt(`Ваш любимый жанр под номером ${i+1}`, '');
-        personalMovieDB.genres[i] = favoriteGenre;
-    }
-}
-
-writeYourGenres();
-
-showMyDB();
