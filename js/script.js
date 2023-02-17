@@ -2,61 +2,64 @@
 
 // Задача:
 
-// У вас есть небольшой кусочек данных о торговом центре, которые записаны в объекте shoppingMallData. Они содержат массив с данными о магазинах, где указана длина и ширина помещения; высоту помещения; стоимость отопления за 1 кубический метр и бюджет на оплату отопления за месяц.
+// У вас есть список учеников, которые хотят поиграть в игру:
 
-// Основная задача - это написать функцию isBudgetEnough, которая буде возвращать строку. Если бюджета хватает для отопления всего объема торгового центра - выводится 'Бюджета достаточно', если нет - 'Бюджета недостаточно'. И все 
+// const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+// Но команд может быть только 3 по 3 человека. Напишите функцию sortStudentsByGroups, которая принимает в себя массив строк.
 
-// Но эта задача содержит несколько подзадач внутри:
+// Внутри она сначала сортирует имена по алфавиту. Затем распределяет учеников по 3 человека в 3 группы по алфавитному порядку. Эти группы должны быть массивами. Как итог, функция возвращает новый массив с тремя командами и строкой как 4й элемент.
 
-// - вычисление общей площади всех магазинов, которая вычисляется как длина магазина, умноженная на его ширину;
+// Пример:
 
-// - вычисление общего объема торгового центра, так как цена отопления указана в кубических метрах;
+// sortStudentsByGroups(students)  =>
 
-// - определение того, хватает ли бюджета на оплату такого объема;
+// [
+//   [ 'Andrew', 'Ann', 'Bernard' ],
+//   [ 'Cris', 'Josh', 'Mark' ],
+//   [ 'Peter', 'Sam', 'Sandra' ],
+//   'Оставшиеся студенты: Takesi'
+// ]
+// Если убрать одно студента из списка, то результат будет:
 
-// - все числа идут без единиц измерения для упрощения, просто цифры и все;
+// [
+//   [ 'Andrew', 'Ann', 'Bernard' ],
+//   [ 'Cris', 'Josh', 'Mark' ],
+//   [ 'Peter', 'Sam', 'Sandra' ],
+//   'Оставшиеся студенты: -'
+// ]
+// А если добавить одного, то:
 
-// - функция должна продолжать работать, даже если изменяется количество магазинов, высота, бюджет или подставляется вообще другой объект.
+// [
+//   [ 'Andrew', 'Ann', 'Bernard' ],
+//   [ 'Cris', 'Josh', 'Mark' ],
+//   [ 'Peter', 'Sam', 'Sandra' ],
+//   'Оставшиеся студенты: Takesi, Somebody'
+// ]
+// То есть, меняется содержимое строки. Все оставшиеся ученики попадают туда.
 
-const shoppingMallData = {
-    shops: [
-        {
-            width: 10,
-            length: 5
-        },
-        {
-            width: 15,
-            length: 7
-        },
-        {
-            width: 20,
-            length: 5
-        },
-        {
-            width: 8,
-            length: 10
+// Задача интересная, немного заковыристая, но все необходимое для неё мы уже проходили. Просто распишите логику действий строка за строкой.
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Aibek', 'Zlatan'];
+
+function sortStudentsByGroups(arr) {
+    arr.sort();
+    let groupOne = [], groupTwo = [], groupThree = [], elseGroup = [];
+    let elseStudents = 'Оставшиеся студенты: -';
+    for (let i = 0; i < arr.length; i++) {
+        if (i < 3) {
+            groupOne.push(arr[i]);
+        } else if (i >= 3 && i < 6) {
+            groupTwo.push(arr[i]);
+        } else if (i >= 6 && i < 9) {
+            groupThree.push(arr[i]);
+        } else {
+            elseGroup.push(arr[i]);
+            elseStudents = `Оставшиеся студенты: ${elseGroup.join(', ')}`;
         }
-    ],
-    height: 5,
-    moneyPer1m3: 30,
-    budget: 50000
+    }    
+    let groups = [groupOne, groupTwo, groupThree, elseStudents];
+
+    return groups;
 }
 
-function isBudgetEnough (mall) {
-    let allArea = 0;
-    let message = '';
-    mall.shops.forEach(shop => {
-        let eachArea = shop.width * shop.length;
-        allArea += eachArea;
-    });
-    let allVolume = allArea * mall.height;
-    let cost = allVolume * mall.moneyPer1m3;
-    if ((mall.budget - cost) < 0) {
-        message = `Бюджета недостаточно ${cost}`;
-    } else {
-        message = `Бюджета достаточно ${cost}`;
-    }
-    return message;
-}
-
-console.log(isBudgetEnough(shoppingMallData));
+console.log(sortStudentsByGroups(students));
