@@ -1,65 +1,51 @@
 'use strict';
 
-// Задача:
+//To String
 
-// У вас есть список учеников, которые хотят поиграть в игру:
+// 1)
+console.log(typeof(String(null)));
+console.log(typeof(String(4)));
 
-// const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
-// Но команд может быть только 3 по 3 человека. Напишите функцию sortStudentsByGroups, которая принимает в себя массив строк.
+// 2)
+console.log(typeof(5 + ''));
 
-// Внутри она сначала сортирует имена по алфавиту. Затем распределяет учеников по 3 человека в 3 группы по алфавитному порядку. Эти группы должны быть массивами. Как итог, функция возвращает новый массив с тремя командами и строкой как 4й элемент.
+const num = 5;
+console.log('https://vk.com/catalog/' + num);
 
-// Пример:
+const fontSize = 26 + 'px';
 
-// sortStudentsByGroups(students)  =>
+// To Number
 
-// [
-//   [ 'Andrew', 'Ann', 'Bernard' ],
-//   [ 'Cris', 'Josh', 'Mark' ],
-//   [ 'Peter', 'Sam', 'Sandra' ],
-//   'Оставшиеся студенты: Takesi'
-// ]
-// Если убрать одно студента из списка, то результат будет:
+// 1)
+console.log(typeof(Number('4')));
 
-// [
-//   [ 'Andrew', 'Ann', 'Bernard' ],
-//   [ 'Cris', 'Josh', 'Mark' ],
-//   [ 'Peter', 'Sam', 'Sandra' ],
-//   'Оставшиеся студенты: -'
-// ]
-// А если добавить одного, то:
+// 2)
+console.log(typeof(+'5'));
 
-// [
-//   [ 'Andrew', 'Ann', 'Bernard' ],
-//   [ 'Cris', 'Josh', 'Mark' ],
-//   [ 'Peter', 'Sam', 'Sandra' ],
-//   'Оставшиеся студенты: Takesi, Somebody'
-// ]
-// То есть, меняется содержимое строки. Все оставшиеся ученики попадают туда.
+// 3)
+console.log(typeof(parseInt('15px', 10)));
 
-// Задача интересная, немного заковыристая, но все необходимое для неё мы уже проходили. Просто распишите логику действий строка за строкой.
+let answer = +prompt('Hello', '');
 
-const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Aibek', 'Zlatan'];
+// To Boolean
 
-function sortStudentsByGroups(arr) {
-    arr.sort();
-    let groupOne = [], groupTwo = [], groupThree = [], elseGroup = [];
-    let elseStudents = 'Оставшиеся студенты: -';
-    for (let i = 0; i < arr.length; i++) {
-        if (i < 3) {
-            groupOne.push(arr[i]);
-        } else if (i >= 3 && i < 6) {
-            groupTwo.push(arr[i]);
-        } else if (i >= 6 && i < 9) {
-            groupThree.push(arr[i]);
-        } else {
-            elseGroup.push(arr[i]);
-            elseStudents = `Оставшиеся студенты: ${elseGroup.join(', ')}`;
-        }
-    }    
-    let groups = [groupOne, groupTwo, groupThree, elseStudents];
+// 0, '', null, undefined, NaN; <- false
 
-    return groups;
+// 1)
+let switcher = null;
+
+if (switcher) {
+    console.log('Working...'); 
 }
 
-console.log(sortStudentsByGroups(students));
+switcher = 1;
+
+if (switcher) {
+    console.log('Working...'); 
+}
+
+// 2)
+console.log(typeof(Boolean('4')));
+
+// 3)
+console.log(typeof(!!'3333'));
