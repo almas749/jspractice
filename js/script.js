@@ -1,38 +1,70 @@
 'use strict';
 
-let z = 5; alert(z++); //5
-alert (++z); //6
+// Задание:
 
-// [ ] + false - null + true 
-console.log([] + false); //'false'
-console.log(typeof([] + false)); //string
-console.log([] + false - null); //NaN
-console.log([] + false - null + true); //NaN
+// У вас есть объект с данными о ресторане. Начинающий разработчик создал несколько функций, которые работают неправильно и он не может понять почему. Нужно исправить функции так, чтобы они давали всегда правильный результат.
 
-let y = 1; 
-let x = y = 2; 
-alert(x); //2
+// 1) Функция isOpen не хочет правильно работать. Что мы уже не пробовали подставлять в неё - результат все время неправильный. Необходимо найти причины и исправить.
 
-// [ ] + 1 + 2
-console.log([] + 1 + 2); //12
+// 2) Функция isAverageLunchPriceTrue должна брать цены двух любых блюд из меню, складывать их и сравнивать с средним чеком (averageLunchPrice).
 
-alert( "1"[0] ); //1
+// Сейчас функция работает, но постоянно выдает неправильный результат. Ведь из представленного меню сумма двух любых цен всегда будет больше 20. Необходимо найти причину и исправить.
 
-consoele.log(2 && 1 && null && 0 && undefined); //null И запинается на лжи 
+// 3) Функция transferWaitors создана для того, чтобы копировать шаблон данных и передавать их в другой ресторан. Конечно, в другом ресторане будут другие блюда, другие официанты и тп. Сейчас эта функция только в начале разработки и должна менять данные про официантов.
 
-console.log(!!( 1 && 2 ) === (1 && 2)); //false
+// Но в нынешнем виде мы обнаружили, что после её запуска не только копия данных содержит новых официантов, но и основные данные! В restorantData сотрудник Alice исчезает и заменяется Mike! Необходимо найти причину и немедленно исправить, чтобы данные были разделены.
 
-                  //3
-alert( null || 2 && 3 || 4 ); //3
-// 2 && 3 -- 3
-// null || 3 -- 3
-// 3 || 4 -- 3  //Или запинается на правде
+const restorantData = {
+    menu: [
+        {
+            name: 'Salad Caesar',
+            price: '14$'
+        },
+        {
+            name: 'Pizza Diavola',
+            price: '9$'
+        },
+        {
+            name: 'Beefsteak',
+            price: '17$'
+        },
+        {
+            name: 'Napoleon',
+            price: '7$'
+        }
+    ],
+    waitors: [
+        {name: 'Alice', age: 22}, {name: 'John', age: 24}
+    ],
+    averageLunchPrice: '20$',
+    openNow: true
+};
 
-const a = [1, 2, 3], b = [1, 2, 3]; 
-console.log(a === b); //false
 
-console.log( +"Infinity" ); //Infinity
+function isOpen(prop) {
+    let answer = '';
+    prop ? answer = 'Открыто' : answer = 'Закрыто';
 
-console.log("Ёжик" > "яблоко"); //false
+    return answer;
+}
 
-console.log(0 || "" || 2 || undefined || true || falsе); // 2
+console.log(isOpen(restorantData.openNow))
+
+function isAverageLunchPriceTrue(fDish, sDish, average) {
+    if ((+fDish.price.slice(0, -1) + (+sDish.price.slice(0, -1))) < +average.slice(0, -1)) {
+        return 'Цена ниже средней';
+    } else {
+        return 'Цена выше средней';
+    }
+}
+
+console.log(isAverageLunchPriceTrue(restorantData.menu[0], restorantData.menu[1], restorantData.averageLunchPrice));
+
+function transferWaitors(data) {
+    const copy = Object.assign({}, data);
+
+    copy.waitors = [{name: 'Mike', age: 32}];
+    return copy;
+}
+
+transferWaitors(restorantData);
