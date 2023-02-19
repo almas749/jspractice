@@ -1,51 +1,29 @@
 'use strict';
 
-//To String
+function createCounter() {
+    let counter = 0;
 
-// 1)
-console.log(typeof(String(null)));
-console.log(typeof(String(4)));
+    const myFunction = function() {
+        counter = counter + 1;
+        return counter;
+    }
 
-// 2)
-console.log(typeof(5 + ''));
-
-const num = 5;
-console.log('https://vk.com/catalog/' + num);
-
-const fontSize = 26 + 'px';
-
-// To Number
-
-// 1)
-console.log(typeof(Number('4')));
-
-// 2)
-console.log(typeof(+'5'));
-
-// 3)
-console.log(typeof(parseInt('15px', 10)));
-
-let answer = +prompt('Hello', '');
-
-// To Boolean
-
-// 0, '', null, undefined, NaN; <- false
-
-// 1)
-let switcher = null;
-
-if (switcher) {
-    console.log('Working...'); 
+    return myFunction;
 }
 
-switcher = 1;
+const increment = createCounter();
+const c1 = increment();
+const c2 = increment();
+const c3 = increment();
 
-if (switcher) {
-    console.log('Working...'); 
+console.log(c1, c2, c3);
+
+let c = 4
+function addX(x) {
+  return function(n) {
+     return n + x
+  }
 }
-
-// 2)
-console.log(typeof(Boolean('4')));
-
-// 3)
-console.log(typeof(!!'3333'));
+const addThree = addX(3)
+let d = addThree(c)
+console.log('example partial application', d)
