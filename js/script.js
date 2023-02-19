@@ -1,29 +1,38 @@
 'use strict';
 
-function createCounter() {
-    let counter = 0;
+let z = 5; alert(z++); //5
+alert (++z); //6
 
-    const myFunction = function() {
-        counter = counter + 1;
-        return counter;
-    }
+// [ ] + false - null + true 
+console.log([] + false); //'false'
+console.log(typeof([] + false)); //string
+console.log([] + false - null); //NaN
+console.log([] + false - null + true); //NaN
 
-    return myFunction;
-}
+let y = 1; 
+let x = y = 2; 
+alert(x); //2
 
-const increment = createCounter();
-const c1 = increment();
-const c2 = increment();
-const c3 = increment();
+// [ ] + 1 + 2
+console.log([] + 1 + 2); //12
 
-console.log(c1, c2, c3);
+alert( "1"[0] ); //1
 
-let c = 4
-function addX(x) {
-  return function(n) {
-     return n + x
-  }
-}
-const addThree = addX(3)
-let d = addThree(c)
-console.log('example partial application', d)
+consoele.log(2 && 1 && null && 0 && undefined); //null И запинается на лжи 
+
+console.log(!!( 1 && 2 ) === (1 && 2)); //false
+
+                  //3
+alert( null || 2 && 3 || 4 ); //3
+// 2 && 3 -- 3
+// null || 3 -- 3
+// 3 || 4 -- 3  //Или запинается на правде
+
+const a = [1, 2, 3], b = [1, 2, 3]; 
+console.log(a === b); //false
+
+console.log( +"Infinity" ); //Infinity
+
+console.log("Ёжик" > "яблоко"); //false
+
+console.log(0 || "" || 2 || undefined || true || falsе); // 2
