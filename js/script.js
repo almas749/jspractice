@@ -1,49 +1,111 @@
 'use strict';
 
-const box = document.getElementById('box'),
-      btns = document.getElementsByTagName('button'),
-      circles = document.getElementsByClassName('circle'),
-      hearts = document.querySelectorAll('.heart'),
-      oneHeart = document.querySelector('.heart'),
-      wrapper = document.querySelector('.wrapper');
-
-// box.style.backgroundColor = 'blue';
-// box.style.width = '500px';
-let num = 500;
-box.style.cssText = `background-color: blue; width: ${num}px`;
-
-btns[1].style.borderRadius = '100%';
-circles[1].style.backgroundColor = 'red';
-
-// for (let i = 0; i < hearts.length; i++) {
-//     hearts[i].style.backgroundColor = 'blue';
+// function pow(x, n) {
+//     if (n === 1) {
+//         return x;
+//     } else {
+//         return x * pow(x, n - 1);
+//     }
 // }
 
-hearts.forEach(item => {
-    item.style.backgroundColor = 'blue';
-});
+// pow(2, 1);
+// pow(2, 2);
+// pow(2, 3);
+// pow(2, 4);
 
-const div = document.createElement('div');
-// const text = document.createTextNode('Тут был я');
+let students = {
+    js: [{
+        name: 'John',
+        progress: 100
+    }, {
+        name: 'Ivan',
+        progress: 60
+    }],
 
-div.classList.add('black');
+    html: {
+        basic: [{
+            name: 'Peter',
+            progress: 20
+        }, {
+            name: 'Ann',
+            progress: 18
+        }],
 
-wrapper.appendChild(div);
-// wrapper.prepend(div);
-// wrapper.append(div);
+        pro: [{
+            name: 'Sam',
+            progress: 10
+        }],
 
-// hearts[0].after(div);
-// hearts[0].before(div);
-// wrapper.insertBefore(div, hearts[0]);
+        semi: {
+            students: [{
+                name: 'test',
+                progress: 100
+            }]
+        }
+    }
+};
 
-// circles[0].remove();
-// wrapper.removeChild(hearts[1]);
+function getTotalProgressByIteration(data) {
+    let total = 0;
+    let students = 0;
 
-// hearts[0].replaceWith(circles[0]);
-// wrapper.replaceChild(circles[0], hearts[0]);
+    for (let course of Object.values(data)) {
+        if (Array.isArray(course)) {
+            students += course.length;
 
-div.innerHTML = '<h1>Hello World</h1>';
+            for (let i = 0; i < course.length; i++) {
+                total += course[i].progress;
+            }
+        } else {
+            for (let subCourse of Object.values(course)) {
+                students += subCourse.length;
 
-// div.textContent = 'salam';
+                for (let i = 0; i < subCourse.length; i++) {
+                    total += subCourse[i].progress;
+                }
+            }
+        }
+    }
 
-div.insertAdjacentHTML('afterend', '<h2>Hello</h2>');
+    return total / students;
+}
+
+// console.log(getTotalProgressByIteration(students));
+
+function getTotalProgressByRecursion (data) {
+    if (Array.isArray(data)) {
+        let total = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            total += data[i].progress;
+        }
+
+        return [total, data.length];
+    } else {
+        let total = [0, 0];
+        
+        for (let subData of Object.values(data)) {
+            const subDataArray = getTotalProgressByRecursion(subData);
+            total[0] += subDataArray[0];
+            total[1] += subDataArray[1]; 
+        }
+
+        return total;
+    }
+}
+
+const result = getTotalProgressByRecursion(students);
+
+console.log(result[0] / result[1]);
+
+function factorial(n) {
+    if (!Number.isInteger(n) || typeof(n) == 'string') {
+        return 'bruh';
+    }
+    if (n === 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+console.log(factorial(5));
