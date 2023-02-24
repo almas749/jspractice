@@ -1,29 +1,34 @@
 'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {
-    const box = document.querySelector('.box');
+// Задание:
 
-    box.addEventListener('touchstart', (e) => {
-        e.preventDefault();
+// В каждой книге есть n страниц с номерами страниц от 1 до n. Написать функцию amountOfPages, аргумент которой summary составляется путем сложения количества цифр всех номеров страниц. Эта функция возвращает число - количество страниц n в книге. Чтобы было понятно что такое количество цифр, давайте рассмотрим примеры.
 
-        console.log('Start');
-        console.log(e.touches);
-    });
+// Пример:
 
-    box.addEventListener('touchmove', (e) => {
-        e.preventDefault();
+// Если на входе функции summary = 25, то на результат должен быть 17. Всего в числах от 1 до 17 содержится 25 цифр: 1234567891011121314151617.
 
-        console.log('Move');
-    });
+// Функция на вход как раз принимает это общее количество цифр, а возвращает конечное число, то есть последнюю страницу книги.
 
-    box.addEventListener('touchend', (e) => {
-        e.preventDefault();
+//         amountOfPages(5) => 5
 
-        console.log('End');
-    })
-    
-});
+//         amountOfPages(25) => 17
 
-// touches пальцы которые взаимодействуют с браузером
-// targetTouches пальцы которые взаимодействуют с конкретным элементом
-// changedTouches список пальцев которые участвуют в текущем событий 
+//         amountOfPages(1095) => 401   
+
+//         amountOfPages(185) => 97
+
+function amountOfPages(summary){
+    let pages = 0;
+    let train = '';
+    for (let i = 1; i <= summary; i++) {
+        train += `${i}`;
+        pages++;
+        if (train.length === summary) {
+            break;
+        }
+    }
+    return pages;
+}
+
+console.log(amountOfPages(185));
