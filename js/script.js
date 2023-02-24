@@ -1,34 +1,26 @@
 'use strict';
-
 // Задание:
 
-// В каждой книге есть n страниц с номерами страниц от 1 до n. Написать функцию amountOfPages, аргумент которой summary составляется путем сложения количества цифр всех номеров страниц. Эта функция возвращает число - количество страниц n в книге. Чтобы было понятно что такое количество цифр, давайте рассмотрим примеры.
+// Панграмма — это предложение, в котором каждая буква алфавита встречается хотя бы по одному разу без повторений. Например, предложение «The quick brown fox jumps over the lazy dog» является панграммой, поскольку в нем хотя бы один раз используются буквы от A до Z (регистр значения не имеет).
+
+// Напишите функцию isPangram, которая принимает в себя строку и возвращает логическое значение. Если строка является панграммой - вернется true, если нет - false.
 
 // Пример:
 
-// Если на входе функции summary = 25, то на результат должен быть 17. Всего в числах от 1 до 17 содержится 25 цифр: 1234567891011121314151617.
+// isPangram(«The quick brown fox jumps over the lazy dog») => true
 
-// Функция на вход как раз принимает это общее количество цифр, а возвращает конечное число, то есть последнюю страницу книги.
+// isPangram(«Hello world») => false
 
-//         amountOfPages(5) => 5
+function isPangram(string) {
 
-//         amountOfPages(25) => 17
+    string = string.toLowerCase();
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    return alphabet.split('').every(function(x){
+        return string.indexOf(x) !== -1;
+    });
 
-//         amountOfPages(1095) => 401   
-
-//         amountOfPages(185) => 97
-
-function amountOfPages(summary){
-    let pages = 0;
-    let train = '';
-    for (let i = 1; i <= summary; i++) {
-        train += `${i}`;
-        pages++;
-        if (train.length === summary) {
-            break;
-        }
-    }
-    return pages;
 }
 
-console.log(amountOfPages(185));
+console.log(isPangram('The quick brown fox jumps over the lazy dog'));
+
+console.log(isPangram('Hello world'));
