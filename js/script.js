@@ -1,26 +1,30 @@
 'use strict';
+
 // Задание:
 
-// Панграмма — это предложение, в котором каждая буква алфавита встречается хотя бы по одному разу без повторений. Например, предложение «The quick brown fox jumps over the lazy dog» является панграммой, поскольку в нем хотя бы один раз используются буквы от A до Z (регистр значения не имеет).
+// Создайте функцию deepCount, которая будет считать количество всех элементов в массиве, включая и вложенные массивы. Учтите, что сам вложенный массив тоже входит в счет. Чтобы понять задачу детальнее, давайте рассмотрим примеры:
 
-// Напишите функцию isPangram, которая принимает в себя строку и возвращает логическое значение. Если строка является панграммой - вернется true, если нет - false.
+// deepCount([1, 5, 3]) => 3
 
-// Пример:
+// deepCount(["1", 5, "3", ["10"]]) => 5 (Заметьте, что последний элемент был посчитан сам + его внутренность)
 
-// isPangram(«The quick brown fox jumps over the lazy dog») => true
+// deepCount([1, 2, [3, 4, [5]]]) => 7
 
-// isPangram(«Hello world») => false
+// deepCount([]) => 0
 
-function isPangram(string) {
+// deepCount([[[[[[[[[]]]]]]]]]) => 8
 
-    string = string.toLowerCase();
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    return alphabet.split('').every(function(x){
-        return string.indexOf(x) !== -1;
-    });
-
+function deepCount(a){
+    let count = a.length;
+    for (let i = 0; i < a.length; i++) {
+        if (Array.isArray(a[i])) {
+            count += deepCount(a[i]);
+        } 
+    }
+    return count;
 }
 
-console.log(isPangram('The quick brown fox jumps over the lazy dog'));
-
-console.log(isPangram('Hello world'));
+console.log(deepCount([]));
+console.log(deepCount([[[[[[[[[]]]]]]]]]));
+console.log(deepCount([1, 2, [3, 4, [5]]]));
+console.log(deepCount([1, 5, 3]));
