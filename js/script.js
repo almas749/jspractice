@@ -1,30 +1,22 @@
 'use strict';
 
-// Задание:
+const btns = document.querySelectorAll('button');
 
-// Создайте функцию deepCount, которая будет считать количество всех элементов в массиве, включая и вложенные массивы. Учтите, что сам вложенный массив тоже входит в счет. Чтобы понять задачу детальнее, давайте рассмотрим примеры:
+// console.log(btns[0].classList.length);
+// console.log(btns[0].classList.item(0)); показывает класс кнопки 0 - первый класс, 1 - второй класс и т.д.
+// console.log(btns[0].classList.add('black'));
+// console.log(btns[0].classList.remove('black'));
+// console.log(btns[0].classList.toggle('black'));
 
-// deepCount([1, 5, 3]) => 3
+// if (btns[2].classList.contains('red')) {
+//     console.log('red');
+// }
 
-// deepCount(["1", 5, "3", ["10"]]) => 5 (Заметьте, что последний элемент был посчитан сам + его внутренность)
-
-// deepCount([1, 2, [3, 4, [5]]]) => 7
-
-// deepCount([]) => 0
-
-// deepCount([[[[[[[[[]]]]]]]]]) => 8
-
-function deepCount(a){
-    let count = a.length;
-    for (let i = 0; i < a.length; i++) {
-        if (Array.isArray(a[i])) {
-            count += deepCount(a[i]);
-        } 
-    }
-    return count;
-}
-
-console.log(deepCount([]));
-console.log(deepCount([[[[[[[[[]]]]]]]]]));
-console.log(deepCount([1, 2, [3, 4, [5]]]));
-console.log(deepCount([1, 5, 3]));
+btns[0].addEventListener('click', () => {
+    // if(!btns[0].classList.contains('red')) {
+    //     btns[0].classList.add('red');
+    // } else {
+    //     btns[0].classList.remove('red');
+    // }
+    btns[0].classList.toggle('red');
+});
