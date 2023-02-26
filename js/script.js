@@ -1,22 +1,21 @@
 'use strict';
 
-const btns = document.querySelectorAll('button');
+const btns = document.querySelectorAll('button'),
+      wrapper = document.querySelector('.btn-block');
 
-// console.log(btns[0].classList.length);
-// console.log(btns[0].classList.item(0)); показывает класс кнопки 0 - первый класс, 1 - второй класс и т.д.
-// console.log(btns[0].classList.add('black'));
-// console.log(btns[0].classList.remove('black'));
-// console.log(btns[0].classList.toggle('black'));
+const btn = document.createElement('button');
+btn.classList.add('red');
+wrapper.append(btn);
 
-// if (btns[2].classList.contains('red')) {
-//     console.log('red');
-// }
+wrapper.addEventListener('click', (e) => {
+    if (e.target && e.target.matches('button.red')) {
+        console.log('hello');
+    }
+});
 
-btns[0].addEventListener('click', () => {
-    // if(!btns[0].classList.contains('red')) {
-    //     btns[0].classList.add('red');
-    // } else {
-    //     btns[0].classList.remove('red');
-    // }
-    btns[0].classList.toggle('red');
+
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('red');
+    });
 });
