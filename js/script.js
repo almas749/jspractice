@@ -1,21 +1,15 @@
 'use strict';
 
-const btns = document.querySelectorAll('button'),
-      wrapper = document.querySelector('.btn-block');
+const log = function(a, b, ...rest) {
+    console.log(a, b, rest);
+}
 
-const btn = document.createElement('button');
-btn.classList.add('red');
-wrapper.append(btn);
+log('basic', 'rest', 'operator', 'usage');
 
-wrapper.addEventListener('click', (e) => {
-    if (e.target && e.target.matches('button.red')) {
-        console.log('hello');
-    }
-});
+// console: basic rest [ 'operator', 'usage' ]
 
+function calcOrDouble(number, basis = 2) {
+    console.log(number * basis);
+}
 
-btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        btn.classList.toggle('red');
-    });
-});
+calcOrDouble(3);
