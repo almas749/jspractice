@@ -1,63 +1,64 @@
 'use strict';
 
-// filter
+// Задачи:
 
-// const names = ['Alesha', 'Biba', 'Maksat', 'Shynauyk', 'Ibrahimovic'];
+// 1) У вас есть список фильмов с рейтингом в виде массива объектов. Напишите функцию showGoodFilms, которая будет принимать этот массив, а возвращать будет массив объектов только с теми фильмами, у которых рейтинг больше или равен 8.
 
-// const shortNames = names.filter((name) => {
-//     return name.length <= 6;
-// });
+// P.S. Это довольно типичная задача в программировании. Вспомните, на самых разных сайтах можно так фильтровать любые товары/фильмы/сериалы...
 
-// console.log(shortNames);
+// 2) Напишите функцию showListOfFilms, которая будет принимать этот же массив, а возвращать будет строку, которая содержит названия фильмов через запятую.
 
+// Пример:
 
-// map
+// showListOfFilms(films) => "Titanic, Die hard 5, Matrix, Some bad film"
 
-// const answers = ['TOnY', 'GRiSHA', 'SalaM'];
+// 3) Напишите функцию setFilmsIds, которая будет принимать этот же массив, а возвращать будет такой же массив с фильмами, но у каждого фильма будет новое поле id. Значение этого поля установите по нумерации фильма.
 
-// const result = answers.map(item => item.toLowerCase());
+// Пример:
 
-// console.log(result);
+// setFilmsIds(films)  => [   { name: 'Titanic', rating: 9, id: 0 },   { name: 'Die hard 5', rating: 5, id: 1 },   { name: 'Matrix', rating: 8, id: 2 },   { name: 'Some bad film', rating: 4, id: 3 } ]
 
+// 4) Запишите результат предыдущей функции в переменную tranformedArray. Напишите функцию checkFilms, которая будет проверять, что в каждом из фильмов есть поле id. Если это так - функция возвращает true. Очевидно, что сейчас условие должно выполняться, если мы передаем checkFilms(tranformedArray); :)
 
-// every/some
+// P.S. Вот тут вы столкнетесь с интересным моментом, который я хочу, чтобы вы запомнили. Внимательно проследите за тем, что происходит внутри коллбэка и что будет проверяться. Дополнительно расписал этот момент в комментариях в ответах.
 
-// const samu = [4, 'awaw', 'ooff'];
+const films = [
+    {
+        name: 'Titanic',
+        rating: 9
+    },
+    {
+        name: 'Die hard 5',
+        rating: 5
+    },
+    {
+        name: 'Matrix',
+        rating: 8
+    },
+    {
+        name: 'Some bad film',
+        rating: 4
+    }
+];
 
-// console.log(samu.some(item => typeof(item) === 'number'));
+function showGoodFilms(arr) {
+    return arr.filter(item => item['rating'] >= 8);
+}
 
-// console.log(samu.every(item => typeof(item) === 'number'));
+function showListOfFilms(arr) {
+    return arr.map(item => item['name']).join(', ');   
+}
 
+function setFilmsIds(arr) {
+    arr.forEach((item, id) => {
+        item['id'] = id;
+    });
 
-// reduce
+    return arr;
+}
 
-// const arr = [4, 5, 1, 3, 6, 2];
+const tranformedArray = setFilmsIds(films);
 
-//                         // 0      4
-//                         // 4      5
-//                         // 9      1
-//                         // 10     3
-// const res = arr.reduce((sum, current) => sum + current);
-// console.log(res);
-
-const arr = ['almurt', 'alma', 'banan'];
-
-                        // 0      4
-                        // 4      5
-                        // 9      1
-                        // 10     3
-const res = arr.reduce((sum, current) => `${sum}, ${current}`);
-console.log(res);
-
-const obj = {
-    ivan: 'person',
-    ann: 'person',
-    dog: 'animal',
-    cat: 'animal'
-};
-
-const newArr = Object.entries(obj) //превращает объект в массив массивов
-.filter(item => item[1] === 'person')
-.map(item => item[0]); 
-
-console.log(newArr);
+function checkFilms(arr) {
+    return arr.every((item) => (item['id'] + 1));
+}
