@@ -2,63 +2,39 @@
 
 // Задачи:
 
-// 1) У вас есть список фильмов с рейтингом в виде массива объектов. Напишите функцию showGoodFilms, которая будет принимать этот массив, а возвращать будет массив объектов только с теми фильмами, у которых рейтинг больше или равен 8.
-
-// P.S. Это довольно типичная задача в программировании. Вспомните, на самых разных сайтах можно так фильтровать любые товары/фильмы/сериалы...
-
-// 2) Напишите функцию showListOfFilms, которая будет принимать этот же массив, а возвращать будет строку, которая содержит названия фильмов через запятую.
+// 1) У вас есть небольшой массив с данными о доходах каждой торговой точки. Напишите функцию getPositiveIncomeAmount, которая принимает этот массив данных и возвращает сумму только положительных значений из каждого объекта. (число)
 
 // Пример:
 
-// showListOfFilms(films) => "Titanic, Die hard 5, Matrix, Some bad film"
+// getPositiveIncomeAmount(funds) => 13300
 
-// 3) Напишите функцию setFilmsIds, которая будет принимать этот же массив, а возвращать будет такой же массив с фильмами, но у каждого фильма будет новое поле id. Значение этого поля установите по нумерации фильма.
+// 2) Напишите функцию getTotalIncomeAmount, которая тоже принимает этот массив данных. Если хотя бы один из объектов содержит отрицательное значение поля amount, то функция возвращает сумму всех значений. (число) Если таких значений нет - запускается функция getPositiveIncomeAmount с тем же массивом данных.
 
 // Пример:
 
-// setFilmsIds(films)  => [   { name: 'Titanic', rating: 9, id: 0 },   { name: 'Die hard 5', rating: 5, id: 1 },   { name: 'Matrix', rating: 8, id: 2 },   { name: 'Some bad film', rating: 4, id: 3 } ]
+// getTotalIncomeAmount(funds) => -500
 
-// 4) Запишите результат предыдущей функции в переменную tranformedArray. Напишите функцию checkFilms, которая будет проверять, что в каждом из фильмов есть поле id. Если это так - функция возвращает true. Очевидно, что сейчас условие должно выполняться, если мы передаем checkFilms(tranformedArray); :)
-
-// P.S. Вот тут вы столкнетесь с интересным моментом, который я хочу, чтобы вы запомнили. Внимательно проследите за тем, что происходит внутри коллбэка и что будет проверяться. Дополнительно расписал этот момент в комментариях в ответах.
-
-const films = [
-    {
-        name: 'Titanic',
-        rating: 9
-    },
-    {
-        name: 'Die hard 5',
-        rating: 5
-    },
-    {
-        name: 'Matrix',
-        rating: 8
-    },
-    {
-        name: 'Some bad film',
-        rating: 4
-    }
+const funds = [
+    {amount: -1400},
+    {amount: 2400},
+    {amount: -1000},
+    {amount: 500},
+    {amount: 10400},
+    {amount: -11400}
 ];
 
-function showGoodFilms(arr) {
-    return arr.filter(item => item['rating'] >= 8);
-}
+const getPositiveIncomeAmount = (data) => {
+    return data.filter(item => (item['amount'] >= 0))
+    .map(item => item['amount'])
+    .reduce((sum, current) => sum + current);
+};
 
-function showListOfFilms(arr) {
-    return arr.map(item => item['name']).join(', ');   
-}
+const getTotalIncomeAmount = (data) => {
+    if (data.some(item => (item['amount'] < 0))) {
+        return data.map(item => item['amount'])
+        .reduce((sum, current) => sum + current);
+    } else {
+        getPositiveIncomeAmount(data);
+    }
+};
 
-function setFilmsIds(arr) {
-    arr.forEach((item, id) => {
-        item['id'] = id;
-    });
-
-    return arr;
-}
-
-const tranformedArray = setFilmsIds(films);
-
-function checkFilms(arr) {
-    return arr.every((item) => (item['id'] + 1));
-}
