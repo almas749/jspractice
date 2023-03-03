@@ -1,15 +1,51 @@
 'use strict';
 
-const log = function(a, b, ...rest) {
-    console.log(a, b, rest);
-}
+console.log('Запрос данных...');
 
-log('basic', 'rest', 'operator', 'usage');
+const req = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        console.log('Подготовка данных...');
 
-// console: basic rest [ 'operator', 'usage' ]
+        const product = {
+            name: 'TV',
+            price: 2000
+        };
 
-function calcOrDouble(number, basis = 2) {
-    console.log(number * basis);
-}
+        resolve(product);
+    }, 2000);
+});
 
-calcOrDouble(3);
+req.then((product) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            product.status = 'order';
+            resolve(product);
+        }, 2000);
+    });
+}).then(data => {
+    data.modify = true;
+    return data;
+}).then(data => {
+    console.log(data);
+}).catch(() => {
+    console.error('Произошла ошибка');
+}).finally(() => {
+    console.log('Finally');
+});
+
+const test = time => {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(), time);
+    });
+};
+
+// test(1000).then(() => console.log('1000 ms'));
+// test(2000).then(() => console.log('2000 ms'));
+
+// Promise.all([test(1000), test(2000)]).then(() => {
+//     console.log('all');
+// });
+
+Promise.race([test(1000), test(2000)]).then(() => {
+    console.log('first');
+});
