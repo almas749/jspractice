@@ -1,35 +1,19 @@
 'use strict';
 
-// new RegExp('pattern', 'flags');
-// /pattern/f
+const person = {
+    name: 'Alex',
+    age: 25,
 
-// const ans = prompt('Введите ваше число');
+    get PersonAge() {
+        return this.age;
+    },
 
-// const reg = /\d/ig;
-// console.log(ans.match(reg));
+    set PersonAge(num) {
+        this.age = num;
+    }
+};
 
-const str = 'My name is R2D2';
-
-console.log(str.match(/\w\d\w\d/i));
-
-// \D not digits
-// \W not words
-
-// \d digits
-// \w words
-// \s spaces
-
-// i найти вне зависимости регистра
-// g найти несколько вхождений
-// m включает многострочный режим
-
-// console.log(ans.search(reg));
-// console.log(ans.match(reg));
-
-// const pass = prompt('Password');
-
-// console.log(pass.replace(/./g, '*'));
-
-// console.log('12-34-56'.replace(/-/g, ':'));
+console.log(person.PersonAge = 30);
+console.log(person.PersonAge);
 
 
