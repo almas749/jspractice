@@ -48,7 +48,7 @@ const normalizePrice = (price) => price.toFixed(2);
 const discount = compose(normalizePrice, divide100, multiply20);
 console.log(discount(200.0));
 
-const composeWithArgs = (...functions) => functions.reduceRight((func, g) => (...args) => g(f(...args)));
+const composeWithArgs = (...functions) => functions.reduceRight((func, g) => (...args) => g(func(...args)));
 
 const add1 = function(a){return a + 1};
 const addAll3 = function(a,b,c){return a + b + c};
