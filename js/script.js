@@ -1,31 +1,18 @@
 'use strict';
 
-// function* generator() {
-//     yield 'S';
-//     yield 'c';
-//     yield 'r';
-//     yield 'i';
-//     yield 'p';
-//     yield 't';
-// }
+const box = document.querySelector('.box');
+let pos = 0;
 
-// const str = generator();
+function myAnimation() {
+    pos++;
+    box.style.left = pos + 'px';
 
-// console.log(str.next().value);
-
-function* count(n) {
-    for (let i = 0; i < n; i++) {
-        yield i;
-    }
+    if (pos < 300) {
+        requestAnimationFrame(myAnimation);
+    } 
 }
 
-for (const k of count(7)) {
-    console.log(k);
-}
+box.addEventListener('click', () => requestAnimationFrame(myAnimation));
 
-// const counter = count(7);
-
-// console.log(counter.next().value);
-// console.log(counter.next().value);
-// console.log(counter.next().value);
-// console.log(counter.next().value);
+let id = requestAnimationFrame(myAnimation);
+cancelAnimationFrame(id);
